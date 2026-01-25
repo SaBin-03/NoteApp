@@ -1,11 +1,12 @@
 import { Router } from "express";
-import { signup } from "../controllers/usersControllers.js";
-import { usersValidationSchemaSign } from "../utils/usersValidationSchema.js";
+import { login, signup , logout } from "../controllers/usersControllers.js";
+import { usersValidationSchemaLogin, usersValidationSchemaSign } from "../utils/usersValidationSchema.js";
 import { checkSchema } from "express-validator";
 
 const userRouter = Router();
 
 userRouter.post("/auth/signup",checkSchema(usersValidationSchemaSign),signup)
-// userRouter.get("/auth/login",login);
+userRouter.post("/auth/login",checkSchema(usersValidationSchemaLogin),login);
+userRouter.post("/auth/logout",logout)
 
 export default userRouter;

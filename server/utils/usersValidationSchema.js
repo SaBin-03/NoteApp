@@ -44,3 +44,23 @@ export const usersValidationSchemaSign = {
     },
   },
 };
+
+
+export const usersValidationSchemaLogin = {
+  email: {
+    notEmpty: {
+      errorMessage: "The email must not be empty",
+    },
+    isEmail: {
+      errorMessage: "Invalid email",
+    },
+    isString: {
+      errorMessage: "The email must be in string form",
+    },
+  },
+  password: {
+    notEmpty: {
+      errorMessage: "The password must not be empty",
+    }
+  },
+};
