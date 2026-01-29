@@ -64,3 +64,15 @@ export const usersValidationSchemaLogin = {
     }
   },
 };
+export const noteValidationSchema = {
+  note: {
+    notEmpty: {
+      errorMessage: "The note must not be empty",
+    }
+  },
+  content: {
+    notEmpty: {
+      errorMessage: "The content must not be empty",
+    }
+  },
+};

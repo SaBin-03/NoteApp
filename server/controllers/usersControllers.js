@@ -1,4 +1,4 @@
-import { User } from "../models/users.Models.js";
+import { UserModel } from "../models/users.Models.js";
 import bcrypt from "bcrypt";
 import { validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
@@ -14,7 +14,7 @@ export const signup = async (req, res) => {
       .json({ success: false, message: "Fill out the field" });
 
   try {
-    const isUserExist = await User.findOne({ email });
+    const isUserExist = await UserModel.findOne({ email });
     if (isUserExist)
       return res.status(400).json({ message: "User Exist With Same Email" });
 
@@ -56,7 +56,7 @@ export const login = async (req, res) => {
       .json({ success: false, message: "Fill out the field" });
 
   try {
-    const isUserExist = await User.findOne({ email });
+    const isUserExist = await UserModel.findOne({ email });
     if (!isUserExist)
       return res
         .status(404)
@@ -95,8 +95,10 @@ export const logout = async (req, res) => {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-    maxAge: 0
+    maxAge: 0,
   });
 
-  return res.status(200).json({ success:true , message:"Logout Successfully" });
+  return res
+    .status(200)
+    .json({ success: true, message: "Logout Successfully" });
 };
