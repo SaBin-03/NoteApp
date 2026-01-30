@@ -1,37 +1,41 @@
-import React from 'react'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Home from './components/Home'
-import Login from './components/Login'
-import Register from './components/Register'
-import Note from './components/Note'
+import React from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Home from "./components/Home";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Note from "./components/Note";
+import ProtectRoute from "./context call/ProtectedRoute";
 
 const App = () => {
-
-    const route = createBrowserRouter([
-        {
-            path:"/",
-            element:<Home />
-        },
-        {
-            path:"/login",
-            element:<Login />
-        },
-        {
-            path:"/register",
-            element:<Register />
-        },
-        {
-            path:"/note-Making",
-            element:<Note />
-        },
-    ])
+  const route = createBrowserRouter([
+    {
+      path: "/",
+      element: <Home />,
+    },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "/register",
+      element: <Register />,
+    },
+    {
+      path: "/note-making",
+      element: (
+        <ProtectRoute>
+          {" "}
+          <Note />{" "}
+        </ProtectRoute>
+      ),
+    },
+  ]);
 
   return (
     <div>
-        <RouterProvider router={route} />
-
+      <RouterProvider router={route} />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

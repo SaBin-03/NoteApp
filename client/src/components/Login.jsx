@@ -1,21 +1,56 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [user, setuser] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const inputHandler = (e) => {
+    const { name, value } = e.target;
+    setuser({ ...user, [name]: value });
+  };
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/api/auth/login",
+        user,
+        { withCredentials: true },
+      );
+      toast.success(response.data.message, { position: "top-right" });
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
+    } catch (error) {
+      toast.error(error.response.data.message, { position: "top-right" });
+    }
+  };
+
   return (
     <div className="h-screen w-screen bg-linear-to-br from-slate-950 via-slate-900 to-black flex justify-center items-center flex-col gap-8">
       <h2 className="text-5xl text-white text-bold ">Login</h2>
 
       <div className="h-[60vh] w-130 rounded-2xl border border-white/10  shadow-2xl">
         <form
+          onSubmit={submitHandler}
           className="flex justify-center items-center flex-col gap-3 h-full"
           autoComplete="off"
         >
-
           <label className="text-2xl text-zinc-300" htmlFor="email">
             Email
           </label>
           <input
+            onChange={inputHandler}
             className="border-0 border-b-2 border-cyan-500 bg-transparent outline-0 text-white w-[80%] p-3 placeholder:text-zinc-600"
             type="email"
             name="email"
@@ -27,6 +62,7 @@ const Login = () => {
             Password
           </label>
           <input
+            onChange={inputHandler}
             className="border-0 border-b-2 border-cyan-500 bg-transparent outline-0 text-white w-[80%] p-3 placeholder:text-zinc-600"
             type="password"
             name="password"

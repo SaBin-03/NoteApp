@@ -15,14 +15,6 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    isLoggedin: {
-      type: Boolean,
-      default: false,
-    },
-    token: {
-      type: String,
-      default: null,
-    },
   },
   { timestamps: true },
 );

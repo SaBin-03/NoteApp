@@ -20,7 +20,7 @@ export const signup = async (req, res) => {
 
     const hashedPassword = bcrypt.hashSync(password, 10);
 
-    const validUser = new User({ name, email, password: hashedPassword });
+    const validUser = new UserModel({ name, email, password: hashedPassword });
     await validUser.save();
 
     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET, {
@@ -67,7 +67,7 @@ export const login = async (req, res) => {
     if (!isMatchPassword)
       return res
         .status(400)
-        .json({ success: false, message: "Passqord Doesnt Match" });
+        .json({ success: false, message: "Password Doesnt Match" });
 
     const token = jwt.sign({ id: isUserExist._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
