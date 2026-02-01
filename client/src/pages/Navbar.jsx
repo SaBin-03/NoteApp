@@ -27,7 +27,7 @@ const Navbar = () => {
   return (
     <div className="w-[80%] h-[10vh] mx-auto rounded-xl flex justify-between items-center border border-white/10  shadow-2xl ">
       <h1 className="text-5xl font-light tracking-tighter text-white flex">
-        Note<span class="text-blue-500">.</span> <NotebookIcon />
+        Note<span className="text-blue-500">.</span> <NotebookIcon />
       </h1>
       <div className="h-full flex justify-center items-center">
         {!isLoggedin ? (

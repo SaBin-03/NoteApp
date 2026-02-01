@@ -33,6 +33,19 @@ export const getNote = async (req, res) => {
       .status(200)
       .json({ success: true, message: "Note Achieved", noteOfUser });
   } catch (error) {
+    console.log(error)
     return res.status(400).json({ success: false, message: "Error" });
   }
 };
+
+export const note = async(req,res) => {
+    try {
+        const notes = await NoteModel.find();
+        return res
+      .status(200)
+      .json({ success: true, message: "Note Achieved", notes });
+
+    } catch (error) {
+        console.log(error);
+    }
+}
