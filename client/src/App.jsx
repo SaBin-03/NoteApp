@@ -5,20 +5,31 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Note from "./components/Note";
 import ProtectRoute from "./context call/ProtectedRoute";
+import PublicRoute from "./context call/PublicRoute";
 
 const App = () => {
   const route = createBrowserRouter([
     {
       path: "/",
-      element: <Home />,
+      element: (
+            <Home />
+      )
     },
     {
       path: "/login",
-      element: <Login />,
+      element: (
+        <PublicRoute>
+            <Login />
+        </PublicRoute>
+      )
     },
     {
       path: "/register",
-      element: <Register />,
+      element:(
+        <PublicRoute>
+            <Register />
+        </PublicRoute>
+      )
     },
     {
       path: "/note-making",

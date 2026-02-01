@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { AuthContext } from "../context call/Context";
+import { ArrowLeft } from "lucide-react";
 
 const Login = () => {
+  const { setisLoggedin } = useContext(AuthContext);
+
   const navigate = useNavigate();
   const [user, setuser] = useState({
     name: "",
@@ -28,6 +32,7 @@ const Login = () => {
         { withCredentials: true },
       );
       toast.success(response.data.message, { position: "top-right" });
+      setisLoggedin(true);
       setTimeout(() => {
         navigate("/");
       }, 1000);
@@ -38,7 +43,16 @@ const Login = () => {
 
   return (
     <div className="h-screen w-screen bg-linear-to-br from-slate-950 via-slate-900 to-black flex justify-center items-center flex-col gap-8">
-      <h2 className="text-5xl text-white text-bold ">Login</h2>
+      <div className="flex justify-center items-center w-140">
+        <Link className="w-[20%]" to={"/"}>
+          <button className="text-2xl  bg-slate-600 rounded text-white p-1 flex cursor-pointer">
+            <ArrowLeft /> Back
+          </button>
+        </Link>
+        <h2 className="text-5xl w-[80%] text-white text-bold text-center">
+          Login
+        </h2>
+      </div>
 
       <div className="h-[60vh] w-130 rounded-2xl border border-white/10  shadow-2xl">
         <form

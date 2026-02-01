@@ -50,12 +50,12 @@ export const login = async (req, res) => {
   if (!result.isEmpty()) return res.status(400).json(result);
 
   const { email, password } = req.body;
-  if (!email || !password)
-    return res
-      .status(400)
-      .json({ success: false, message: "Fill out the field" });
 
   try {
+    if (!email || !password)
+      return res
+        .status(400)
+        .json({ success: false, message: "Fill out the field" });
     const isUserExist = await UserModel.findOne({ email });
     if (!isUserExist)
       return res
