@@ -64,6 +64,7 @@ const Login = () => {
             Email
           </label>
           <input
+            autoFocus
             onChange={inputHandler}
             className="border-0 border-b-2 border-cyan-500 bg-transparent outline-0 text-white w-[80%] p-3 placeholder:text-zinc-600"
             type="email"

@@ -6,6 +6,8 @@ import Register from "./components/Register";
 import Note from "./components/Note";
 import ProtectRoute from "./context call/ProtectedRoute";
 import PublicRoute from "./context call/PublicRoute";
+import Add from "./pages/Add";
+import Logout from "./pages/Logout";
 
 const App = () => {
   const route = createBrowserRouter([
@@ -37,6 +39,24 @@ const App = () => {
         <ProtectRoute>
           {" "}
           <Note />{" "}
+        </ProtectRoute>
+      ),
+    },
+    {
+      path: "/add",
+      element: (
+        <ProtectRoute>
+          {" "}
+          <Add />{" "}
+        </ProtectRoute>
+      ),
+    },
+    {
+      path: "/logout",
+      element: (
+        <ProtectRoute>
+          {" "}
+          <Logout />{" "}
         </ProtectRoute>
       ),
     },

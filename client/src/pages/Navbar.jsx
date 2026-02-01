@@ -45,12 +45,14 @@ const Navbar = () => {
           </div>
         ) : (
           <div className="flex justify-center items-center">
-            <button
-              onClick={logoutHandler}
-              className="px-6 py-2 text-white transition-transform bg-blue-600 rounded-lg hover:bg-blue-500 active:scale-95 shadow-lg shadow-blue-500/20 cursor-pointer"
-            >
-              Logout
-            </button>
+            <Link to={"/logout"}>
+              <button
+                onClick={logoutHandler}
+                className="px-6 py-2 text-white transition-transform bg-blue-600 rounded-lg hover:bg-blue-500 active:scale-95 shadow-lg shadow-blue-500/20 cursor-pointer"
+              >
+                Logout
+              </button>
+            </Link>
           </div>
         )}
       </div>
