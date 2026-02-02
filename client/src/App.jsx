@@ -8,9 +8,16 @@ import ProtectRoute from "./context call/ProtectedRoute";
 import PublicRoute from "./context call/PublicRoute";
 import Add from "./pages/Add";
 import Update from "./pages/Update";
+import NotFound from "./pages/NotFound";
 
 const App = () => {
   const route = createBrowserRouter([
+    {
+      path: "*",
+      element: (
+            <NotFound />
+      )
+    },
     {
       path: "/",
       element: (
