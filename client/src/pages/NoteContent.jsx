@@ -2,6 +2,7 @@ import { NotebookIcon, NotebookPenIcon, PlusIcon, Trash2 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const NoteContent = () => {
   const [notes, setnotes] = useState([]);
@@ -24,6 +25,19 @@ const NoteContent = () => {
     getNoteFun();
   }, []);
 
+
+  const del = async(id) => {
+    try {
+        const response = await axios.delete(`http://localhost:4000/api/deleteNotes/${id}`);
+        toast.success(response.data.message,{position:"top-right"});
+
+        setnotes((prev) => prev.filter((note) => note._id !== id));
+
+    } catch (error) {
+        console.log(error);
+    }
+  }
+
   return (
     <div className="h-[90vh] w-screen  flex justify-center items-center flex-col">
       {isData ? (
@@ -43,10 +57,10 @@ const NoteContent = () => {
             <h3 className="text-xl text-white">{note.note}</h3>
             <h3 className="text-xl text-white col-span-3">{note.content}</h3>
             <div className="text-xl text-white flex gap-3 cursor-pointer">
-              <Link>
+              <Link to={`/update/${note._id}`}>
                 <NotebookPenIcon color="yellow" />
               </Link>{" "}
-              <Trash2 />
+              <Trash2 onClick={() => del(note._id)} />
             </div>
           </div>
         ))}

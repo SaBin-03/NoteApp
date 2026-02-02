@@ -26,9 +26,11 @@ const Navbar = () => {
 
   return (
     <div className="w-[80%] h-[10vh] mx-auto rounded-xl flex justify-between items-center border border-white/10  shadow-2xl ">
-      <h1 className="text-5xl font-light tracking-tighter text-white flex">
-        Note<span className="text-blue-500">.</span> <NotebookIcon />
-      </h1>
+      <Link to={"/"}>
+        <h1 className="text-5xl font-light tracking-tighter text-white flex">
+          Note<span className="text-blue-500">.</span> <NotebookIcon />
+        </h1>
+      </Link>
       <div className="h-full flex justify-center items-center">
         {!isLoggedin ? (
           <div className="flex justify-center items-center gap-3">

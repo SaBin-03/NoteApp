@@ -33,19 +33,75 @@ export const getNote = async (req, res) => {
       .status(200)
       .json({ success: true, message: "Note Achieved", noteOfUser });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return res.status(400).json({ success: false, message: "Error" });
   }
 };
 
-export const note = async(req,res) => {
-    try {
-        const notes = await NoteModel.find();
-        return res
-      .status(200)
-      .json({ success: true, message: "Note Achieved", notes });
+export const updateNote = async (req, res) => {
+  const {
+    params: { id },
+    body: { note, content },
+  } = req;
 
-    } catch (error) {
-        console.log(error);
-    }
-}
+  const result = validationResult(req);
+  if (!result.isEmpty()) return res.status(400).json(result);
+
+  try {
+    const noteExist = await NoteModel.findById(id);
+    if (!noteExist)
+      return res
+        .status(404)
+        .json({ success: false, message: "Note Note Found" });
+
+    const updatenote = await NoteModel.findByIdAndUpdate(
+      id,
+      { note, content },
+      { new: true },
+    );
+
+    return res
+      .status(200)
+      .json({ success: true, message: "Note Updated", updatenote });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({ success: false, message: "Error" });
+  }
+};
+
+export const deleteNote = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+
+  try {
+    const noteExist = await NoteModel.findById(id);
+    if (!noteExist)
+      return res
+        .status(404)
+        .json({ success: false, message: "Note Note Found" });
+
+    const deleteNote = await NoteModel.findByIdAndDelete(id);
+
+    return res
+      .status(200)
+      .json({ success: true, message: "Note Deleted Successfully" });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({ success: false, message: "Error" });
+  }
+};
+
+export const getNoteById = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  try {
+
+    const notes = await NoteModel.findById(id);
+    return res.status(200).json({ success:true , message:"Notes Found",notes });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({ success: false, message: "Error" });
+  }
+};

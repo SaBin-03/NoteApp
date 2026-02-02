@@ -7,7 +7,7 @@ import Note from "./components/Note";
 import ProtectRoute from "./context call/ProtectedRoute";
 import PublicRoute from "./context call/PublicRoute";
 import Add from "./pages/Add";
-import Logout from "./pages/Logout";
+import Update from "./pages/Update";
 
 const App = () => {
   const route = createBrowserRouter([
@@ -52,11 +52,11 @@ const App = () => {
       ),
     },
     {
-      path: "/logout",
+      path: "/update/:id",
       element: (
         <ProtectRoute>
           {" "}
-          <Logout />{" "}
+          <Update />{" "}
         </ProtectRoute>
       ),
     },
