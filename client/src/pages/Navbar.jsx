@@ -12,7 +12,7 @@ const Navbar = () => {
   const logoutHandler = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/auth/logout",
+        "https://noteapp-backend-nvje.onrender.com/api/auth/logout",
         {},
         { withCredentials: true },
       );
