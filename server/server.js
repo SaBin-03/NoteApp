@@ -9,19 +9,20 @@ dotenv.config();
 
 const app = express();
 
+app.use(cors({
+  origin: process.env.FRONTEND_URL,
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+}));
 
-app.use(
-  cors({
-    origin: process.env.FRONTEND_URL,
-    credentials: true,
-  }),
-);
-console.log("CORS ALLOWING ORIGIN:", process.env.FRONTEND_URL);
+app.options("*", cors());
+
 app.use(express.json());
 app.use(cookieParser());
 
 
 
+console.log("CORS ALLOWING ORIGIN:", process.env.FRONTEND_URL);
 const PORT = process.env.PORT || 5000;
 
 app.use(serverRouter);
