@@ -14,7 +14,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://noteapp-frontend-f1fj.onrender.com/",
     credentials: true,
   }),
 );
