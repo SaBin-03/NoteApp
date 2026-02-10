@@ -6,7 +6,6 @@ import toast from "react-hot-toast";
 
 const NoteContent = () => {
   const [notes, setnotes] = useState([]);
-  const [isData, setisData] = useState(false);
 
   useEffect(() => {
     const getNoteFun = async () => {
@@ -16,7 +15,6 @@ const NoteContent = () => {
         });
         if (response.data.success){
              setnotes(response.data.noteOfUser);
-             setisData(true);
         }
       } catch (error) {
         console.log(error);
@@ -32,7 +30,6 @@ const NoteContent = () => {
         toast.success(response.data.message,{position:"top-right"});
 
         setnotes((prev) => prev.filter((note) => note._id !== id));
-        setisData(false);
 
     } catch (error) {
         console.log(error);
@@ -41,23 +38,23 @@ const NoteContent = () => {
 
   return (
     <div className="h-[90vh] w-screen  flex justify-center items-center flex-col">
-      {isData ? (
+      {notes.length !== 0  ? (
         <div className="h-[96%] w-[97%]  overflow-scroll no-scrollbar overflow-x-hidden relative">
         <div className="h-15 w-[98%] rounded-2xl  p-2 m-3  border-2 border-gray-800 grid  grid-cols-6 place-items-center ">
-          <h3 className="text-xl text-white">S.No.</h3>
-          <h3 className="text-xl text-white">Note-Title</h3>
-          <h3 className="text-xl text-white col-span-3">Notes</h3>
-          <h3 className="text-xl text-white">Actions</h3>
+          <h3 className="text-sm md:text-xl text-white">S.No.</h3>
+          <h3 className="text-sm md:text-xl text-white">Note-Title</h3>
+          <h3 className="text-sm md:text-xl text-white col-span-3">Notes</h3>
+          <h3 className="text-sm md:text-xl text-white">Actions</h3>
         </div>
         {notes.map((note, index) => (
           <div
             key={index}
             className="w-[97%] rounded-2xl  p-2 m-3  bg-gray-900 grid  grid-cols-6 place-items-center "
           >
-            <h3 className="text-xl text-white">{index + 1}</h3>
-            <h3 className="text-xl text-white">{note.note}</h3>
-            <h3 className="text-xl text-white col-span-3">{note.content}</h3>
-            <div className="text-xl text-white flex gap-3 cursor-pointer">
+            <h3 className="text-sm md:text-xl text-white">{index + 1}</h3>
+            <h3 className="text-sm md:text-xl break-all text-white">{note.note}</h3>
+            <h3 className="text-sm md:text-xl break-all text-white col-span-3">{note.content}</h3>
+            <div className="text-sm md:text-xl text-white flex gap-3 cursor-pointer">
               <Link to={`/update/${note._id}`}>
                 <NotebookPenIcon color="yellow" />
               </Link>{" "}
@@ -67,8 +64,8 @@ const NoteContent = () => {
         ))}
       </div>
       ):(
-        <div className="h-[96%] w-[97%] flex justify-center items-center relative">
-            <h2 className="text-5xl font-black text-white ">Click <span className="text-blue-500"> Add</span> icon to create Note<NotebookIcon /></h2>
+        <div className="h-[96%] w-[97%] flex justify-center items-center relative p-2">
+            <h2 className="text-3xl md:text-5xl font-black text-white ">Click <span className="text-blue-500"> Add</span> icon to create Note<NotebookIcon /></h2>
         </div>
       )}
       <Link to={"/add"}>

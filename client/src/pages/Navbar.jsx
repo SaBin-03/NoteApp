@@ -27,7 +27,7 @@ const Navbar = () => {
   return (
     <div className="w-[80%] h-[10vh] mx-auto rounded-xl flex justify-between items-center border border-white/10  shadow-2xl ">
       <Link to={"/"}>
-        <h1 className="text-5xl font-light tracking-tighter text-white flex">
+        <h1 className="text-3xl md:text-5xl font-light tracking-tighter text-white flex">
           Note<span className="text-blue-500">.</span> <NotebookIcon  />
         </h1>
       </Link>
@@ -35,12 +35,12 @@ const Navbar = () => {
         {!isLoggedin ? (
           <div className="flex justify-center items-center gap-3">
             <Link to={"/login"}>
-              <button className="px-6 py-2  text-gray-300 transition-colors border border-gray-700 rounded-lg hover:text-white hover:border-gray-500 cursor-pointer">
+              <button className="px-1 md:px-6 py-2  text-gray-300 transition-colors border border-gray-700 rounded-lg hover:text-white hover:border-gray-500 cursor-pointer">
                 Login
               </button>
             </Link>
             <Link to={"/register"}>
-              <button className="px-6 py-2 text-sm font-medium text-white transition-transform bg-blue-600 rounded-lg hover:bg-blue-500 active:scale-95 shadow-lg shadow-blue-500/20 cursor-pointer">
+              <button className="px-1 md:px-6 py-2 text-sm font-medium text-white transition-transform bg-blue-600 rounded-lg hover:bg-blue-500 active:scale-95 shadow-lg shadow-blue-500/20 cursor-pointer">
                 Register
               </button>
             </Link>
@@ -50,7 +50,7 @@ const Navbar = () => {
             <Link to={"/logout"}>
               <button
                 onClick={logoutHandler}
-                className="px-6 py-2 text-white transition-transform bg-blue-600 rounded-lg hover:bg-blue-500 active:scale-95 shadow-lg shadow-blue-500/20 cursor-pointer"
+                className="px-1 md:px-6  py-2 text-white transition-transform bg-blue-600 rounded-lg hover:bg-blue-500 active:scale-95 shadow-lg shadow-blue-500/20 cursor-pointer"
               >
                 Logout
               </button>
