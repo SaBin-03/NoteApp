@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/api/auth", {
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/auth`, {
           withCredentials: true,
         });
         if(response.data.success) setisLoggedin(true);

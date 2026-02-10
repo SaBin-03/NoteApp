@@ -8,8 +8,8 @@ import { AuthProvider } from "./context call/Context.jsx";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AuthProvider>
-      <App />
-      <Toaster />
+        <App />
+        <Toaster />
     </AuthProvider>
   </StrictMode>,
 );

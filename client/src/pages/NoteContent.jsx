@@ -26,7 +26,7 @@ const NoteContent = () => {
 
   const del = async(id) => {
     try {
-        const response = await axios.delete(`http://localhost:4000/api/deleteNotes/${id}`);
+        const response = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/deleteNotes/${id}`);
         toast.success(response.data.message,{position:"top-right"});
 
         setnotes((prev) => prev.filter((note) => note._id !== id));

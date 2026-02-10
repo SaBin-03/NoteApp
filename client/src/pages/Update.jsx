@@ -36,7 +36,7 @@ const Update = () => {
   const submitHandler = async(e) => {
     e.preventDefault();
     try {
-        const response = await axios.put(`http://localhost:4000/api/updateNotes/${id}`,data,{withCredentials:true});
+        const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/updateNotes/${id}`,data,{withCredentials:true});
 
         toast.success(response.data.message,{position:"top-right"});
         navigate("/note-making");

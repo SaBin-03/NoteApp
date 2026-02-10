@@ -1,18 +1,23 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context call/Context";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { NotebookIcon } from "lucide-react";
+import { MoonStar, NotebookIcon, Sun } from "lucide-react";
 
 const Navbar = () => {
   const { isLoggedin, setisLoggedin } = useContext(AuthContext);
+
+
+
+
   const navigate = useNavigate();
 
   const logoutHandler = async () => {
+
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/auth/logout",
+        `${import.meta.env.VITE_BACKEND_URL}/api/auth/logout`,
         {},
         { withCredentials: true },
       );
@@ -28,7 +33,7 @@ const Navbar = () => {
     <div className="w-[80%] h-[10vh] mx-auto rounded-xl flex justify-between items-center border border-white/10  shadow-2xl ">
       <Link to={"/"}>
         <h1 className="text-3xl md:text-5xl font-light tracking-tighter text-white flex">
-          Note<span className="text-blue-500">.</span> <NotebookIcon  />
+          Note<span className="text-blue-500">.</span> <NotebookIcon />
         </h1>
       </Link>
       <div className="h-full flex justify-center items-center">
