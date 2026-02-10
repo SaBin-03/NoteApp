@@ -32,6 +32,7 @@ const NoteContent = () => {
         toast.success(response.data.message,{position:"top-right"});
 
         setnotes((prev) => prev.filter((note) => note._id !== id));
+        setisData(false);
 
     } catch (error) {
         console.log(error);

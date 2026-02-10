@@ -31,6 +31,13 @@ const Login = () => {
         user,
         { withCredentials: true },
       );
+
+      const { AccessToken } = response.data;
+
+      if(AccessToken){
+        localStorage.setItem("AccessToken",AccessToken);
+      }
+
       toast.success(response.data.message, { position: "top-right" });
       setisLoggedin(true);
       setTimeout(() => {

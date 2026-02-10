@@ -7,7 +7,7 @@ const PublicRoute = ({ children }) => {
 
   if (isLoggedin === null) return <h2>Loading...</h2>;
   if (isLoggedin) {
-    return <Navigate to={location.state?.from || "/"} replace />;
+    return <Navigate to={location.state?.from || "/"} replace/>;
   }
 
   return children;

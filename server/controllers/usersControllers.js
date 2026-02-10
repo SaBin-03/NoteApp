@@ -1,6 +1,7 @@
 import { UserModel } from "../models/users.Models.js";
 import bcrypt from "bcrypt";
 import { validationResult } from "express-validator";
+import { genAccessToken, genRefreshToken } from "./tokenGenerator.js";
 import jwt from "jsonwebtoken";
 
 export const signup = async (req, res) => {
@@ -22,17 +23,6 @@ export const signup = async (req, res) => {
 
     const validUser = new UserModel({ name, email, password: hashedPassword });
     await validUser.save();
-
-    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
-    });
-
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
 
     return res.status(201).json({
       success: true,
@@ -69,11 +59,10 @@ export const login = async (req, res) => {
         .status(400)
         .json({ success: false, message: "Password Doesnt Match" });
 
-    const token = jwt.sign({ id: isUserExist._id }, process.env.JWT_SECRET, {
-      expiresIn: "7d",
-    });
+    const AccessToken = genAccessToken(isUserExist._id);
+    const RefreshToken = genRefreshToken(isUserExist._id);
 
-    res.cookie("token", token, {
+    res.cookie("Rtoken", RefreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
@@ -82,7 +71,12 @@ export const login = async (req, res) => {
 
     return res
       .status(200)
-      .json({ success: true, message: "User Logedin Successfully" });
+      .json({
+        success: true,
+        message: "User Logedin Successfully",
+        AccessToken: AccessToken,
+      });
+
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Something went wrong" });
@@ -90,7 +84,7 @@ export const login = async (req, res) => {
 };
 
 export const logout = async (req, res) => {
-  res.cookie("token", "", {
+  res.cookie("Rtoken", "", {
     path: "/",
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
@@ -101,4 +95,32 @@ export const logout = async (req, res) => {
   return res
     .status(200)
     .json({ success: true, message: "Logout Successfully" });
+};
+
+export const refreshAccessToken = async (req, res) => {
+  const refreshToken = req.cookies.Rtoken;
+  if (!refreshToken)
+    return res
+      .status(401)
+      .json({ success: false, message: "Unauthorized Refresh Token Missing" });
+
+  try {
+    const decoded = jwt.verify(refreshToken, process.env.REFRESH_SECRET);
+
+    const user = await UserModel.findById(decoded.id);
+
+    if (!user)
+      return res
+        .status(403)
+        .json({
+          success: false,
+          message: "Unauthorized Refresh Token Missing",
+        });
+
+    const newAcessToken = genAccessToken(user._id);
+
+    return res.status(200).json({ newAcessToken });
+  } catch (error) {
+    console.log(error);
+  }
 };
