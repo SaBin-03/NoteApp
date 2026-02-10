@@ -18,7 +18,7 @@ const Update = () => {
     const func = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/api/noteById/${id}`,{withCredentials:true}
+          `https://noteapp-backend-nvje.onrender.com/api/noteById/${id}`,{withCredentials:true}
         );
         setdata(response.data.notes);
       } catch (error) {
