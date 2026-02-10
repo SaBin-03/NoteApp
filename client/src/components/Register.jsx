@@ -24,7 +24,7 @@ const Register = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/auth/signup",
+        "https://noteapp-backend-nvje.onrender.com/api/auth/signup",
         user,
         { withCredentials: true },
       );
