@@ -5,19 +5,18 @@ import serverRouter from "./routes/serverRoute.js";
 import cors from "cors";
 import mongodbConnection from "./mongoDb/mongoDbConnection.js";
 
-dotenv.config({
-    path:"./.env"
-})
+dotenv.config();
 
 const app = express();
 
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: process.env.FRONTEND_URL,
     credentials: true,
   }),
 );
+console.log("CORS ALLOWING ORIGIN:", process.env.FRONTEND_URL);
 app.use(express.json());
 app.use(cookieParser());
 

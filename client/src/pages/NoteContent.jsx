@@ -10,7 +10,7 @@ const NoteContent = () => {
   useEffect(() => {
     const getNoteFun = async () => {
       try {
-        const response = await axios.get("https://noteapp-backend-nvje.onrender.com/api/getNote", {
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/getNote`, {
           withCredentials: true,
         });
         if (response.data.success){
