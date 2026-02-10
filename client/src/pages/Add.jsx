@@ -22,7 +22,7 @@ const Add = () => {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/note-making`,
+        "http://localhost:4000/api/note-making",
         data,
         { withCredentials: true },
       );
