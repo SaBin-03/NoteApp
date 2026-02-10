@@ -22,7 +22,7 @@ const Add = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/note-making",
+        "https://noteapp-backend-nvje.onrender.com/api/note-making",
         data,
         { withCredentials: true },
       );
