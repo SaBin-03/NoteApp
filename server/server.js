@@ -12,19 +12,7 @@ const app = express();
 app.use(cors({
   origin: process.env.FRONTEND_URL,
   credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
 }));
-
-// Instead of app.options("*"), use this more compatible version:
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", process.env.FRONTEND_URL);
-  res.header("Access-Control-Allow-Credentials", "true");
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200);
-  }
-  next();
-});
 
 
 app.use(express.json());
@@ -35,7 +23,7 @@ app.use(cookieParser());
 console.log("CORS ALLOWING ORIGIN:", process.env.FRONTEND_URL);
 const PORT = process.env.PORT || 5000;
 
-app.use("/api",serverRouter);
+app.use(serverRouter);
 
 
 app.get("/",(req,res) => {
