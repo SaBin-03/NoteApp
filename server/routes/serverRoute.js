@@ -4,8 +4,8 @@ import noteRouter from "./noteRoute.js";
 
 const serverRouter = Router();
 
-serverRouter.use("/api",userRouter);
-serverRouter.use("/api",noteRouter);
+serverRouter.use(userRouter);
+serverRouter.use(noteRouter);
 
 
 export default serverRouter;

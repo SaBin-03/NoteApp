@@ -35,7 +35,7 @@ app.use(cookieParser());
 console.log("CORS ALLOWING ORIGIN:", process.env.FRONTEND_URL);
 const PORT = process.env.PORT || 5000;
 
-app.use(serverRouter);
+app.use("/api",serverRouter);
 
 
 app.get("/",(req,res) => {

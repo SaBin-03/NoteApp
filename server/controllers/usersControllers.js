@@ -69,14 +69,11 @@ export const login = async (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    return res
-      .status(200)
-      .json({
-        success: true,
-        message: "User Logedin Successfully",
-        AccessToken: AccessToken,
-      });
-
+    return res.status(200).json({
+      success: true,
+      message: "User Logedin Successfully",
+      AccessToken: AccessToken,
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Something went wrong" });
@@ -87,8 +84,10 @@ export const logout = async (req, res) => {
   res.cookie("Rtoken", "", {
     path: "/",
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+    // secure: process.env.NODE_ENV === "production",
+    secure: true,
+    sameSite: "none",
+    // sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
     maxAge: 0,
   });
 
@@ -110,12 +109,10 @@ export const refreshAccessToken = async (req, res) => {
     const user = await UserModel.findById(decoded.id);
 
     if (!user)
-      return res
-        .status(403)
-        .json({
-          success: false,
-          message: "Unauthorized Refresh Token Missing",
-        });
+      return res.status(403).json({
+        success: false,
+        message: "Unauthorized Refresh Token Missing",
+      });
 
     const newAcessToken = genAccessToken(user._id);
 
